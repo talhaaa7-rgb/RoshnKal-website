@@ -346,11 +346,14 @@ textarea:focus-visible,
 
 .rk-footer {
   background: var(--rk-navy);
-  color: rgba(247, 245, 240, 0.85);
+  color: rgba(231, 230, 228, 0.85);
 }
-.rk-footer a { color: rgba(247, 245, 240, 0.85); }
+.rk-footer a { color: rgba(251, 251, 251, 0.85); }
 .rk-footer a:hover { color: var(--rk-gold); }
 .rk-footer .dawn-line { margin-bottom: 0; }
+.rk-footer h2 {
+  color: var(--rk-gold) !important;
+}
 
 /* ============================================================
    Table
