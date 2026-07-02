@@ -1,0 +1,419 @@
+/* ============================================================
+   Roshn Kal — Custom Theme
+   Design concept: "the dawn line" — Roshn (bright) + Kal (tomorrow).
+   A thin gold horizon arc recurs across the nav, hero, and card tops
+   as the one signature motif; everything else stays quiet and disciplined.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  /* ---- Roshn Kal design tokens ---- */
+  --rk-gold: #f2a93b;
+  --rk-gold-dark: #c9821e;
+  --rk-navy: #12172b;
+  --rk-navy-2: #1b2140;
+  --rk-cream: #f7f5f0;
+  --rk-surface: #ffffff;
+  --rk-coral: #e8654f;
+  --rk-ink: #21253a;
+  --rk-ink-soft: #5b5f76;
+  --rk-border: rgba(18, 23, 43, 0.1);
+  --rk-hero-bg: #efe7d7;
+  --rk-hero-color: var(--rk-ink);
+
+  --rk-font-display: "Fraunces", Georgia, serif;
+  --rk-font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --rk-font-mono: "IBM Plex Mono", monospace;
+
+  /* ---- Bootstrap variable overrides (light) ---- */
+  --bs-body-font-family: var(--rk-font-body);
+  --bs-body-bg: var(--rk-cream);
+  --bs-body-color: var(--rk-ink);
+  --bs-primary: var(--rk-gold);
+  --bs-primary-rgb: 242, 169, 59;
+  --bs-secondary: var(--rk-navy);
+  --bs-secondary-rgb: 18, 23, 43;
+  --bs-link-color: var(--rk-navy);
+  --bs-link-hover-color: var(--rk-gold-dark);
+  --bs-border-radius: 0.5rem;
+  --bs-border-radius-lg: 0.9rem;
+  --bs-border-color: var(--rk-border);
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--rk-navy);
+  --bs-body-color: #ece9e1;
+  --bs-secondary-bg: var(--rk-navy-2);
+  --bs-tertiary-bg: var(--rk-navy-2);
+  --bs-border-color: rgba(247, 245, 240, 0.12);
+  --bs-link-color: var(--rk-gold);
+  --bs-link-hover-color: #ffcf85;
+  --rk-surface: var(--rk-navy-2);
+  --rk-ink: #ece9e1;
+  --rk-ink-soft: #b7b9c9;
+  --rk-hero-bg: var(--rk-navy);
+  --rk-hero-color: #f7f5f0;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, .display-font {
+  font-family: var(--rk-font-display);
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--rk-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rk-gold-dark);
+}
+[data-bs-theme="dark"] .eyebrow {
+  color: var(--rk-gold);
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--rk-gold);
+  color: var(--rk-navy);
+}
+
+/* Visible keyboard focus everywhere (accessibility / Lighthouse) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.nav-link:focus-visible {
+  outline: 3px solid var(--rk-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Signature motif: the dawn arc
+   ============================================================ */
+.dawn-line {
+  height: 3px;
+  border: 0;
+  background: linear-gradient(90deg, var(--rk-navy) 0%, var(--rk-gold) 50%, var(--rk-coral) 100%);
+  opacity: 0.9;
+}
+
+.dawn-rule {
+  position: relative;
+}
+.dawn-rule::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin-top: 0.85rem;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--rk-gold), var(--rk-coral));
+}
+.dawn-rule.center::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   Navbar (sticky + offcanvas)
+   ============================================================ */
+.rk-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: color-mix(in srgb, var(--rk-cream) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--rk-navy), var(--rk-gold), var(--rk-coral)) 1;
+  transition: background-color 0.3s ease;
+}
+[data-bs-theme="dark"] .rk-navbar {
+  background: color-mix(in srgb, var(--rk-navy) 88%, transparent);
+}
+
+.rk-brand {
+  font-family: var(--rk-font-display);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--rk-ink) !important;
+}
+.rk-brand .bi {
+  color: var(--rk-gold);
+}
+
+.rk-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+  box-shadow: 0 0 0 2px var(--rk-gold);
+}
+.rk-logo--footer {
+  width: 42px;
+  height: 42px;
+}
+
+.rk-navbar .nav-link {
+  font-weight: 500;
+  color: var(--rk-ink) !important;
+  position: relative;
+  padding-inline: 0.85rem;
+}
+.rk-navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.15rem;
+  height: 2px;
+  background: var(--rk-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.rk-navbar .nav-link:hover::after,
+.rk-navbar .nav-link.active::after {
+  transform: scaleX(1);
+}
+.rk-navbar .nav-link.active {
+  color: var(--rk-gold-dark) !important;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  border: 1px solid var(--rk-border);
+  background: transparent;
+  color: var(--rk-ink);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.theme-toggle:hover {
+  background: var(--rk-gold);
+  color: var(--rk-navy);
+  transform: rotate(20deg);
+}
+.theme-toggle .bi-moon-stars { display: none; }
+[data-bs-theme="dark"] .theme-toggle .bi-sun { display: none; }
+[data-bs-theme="dark"] .theme-toggle .bi-moon-stars { display: inline-block; }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.rk-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--rk-hero-bg);
+  color: var(--rk-hero-color);
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.rk-hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.08;
+}
+.rk-hero p.lead {
+  color: var(--rk-hero-color);
+  opacity: 0.82;
+  max-width: 46ch;
+}
+
+/* small hero used on inner pages */
+.rk-hero.rk-hero--sm {
+  padding-block: clamp(2.5rem, 6vw, 3.75rem);
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.rk-card {
+  background: var(--rk-surface);
+  border: 1px solid var(--bs-border-color);
+  border-top: 3px solid var(--rk-gold);
+  border-radius: var(--bs-border-radius-lg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  height: 100%;
+}
+.rk-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1.25rem 2.5rem -1.25rem rgba(18, 23, 43, 0.35);
+}
+.rk-card .rk-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(242, 169, 59, 0.15);
+  color: var(--rk-gold-dark);
+  font-size: 1.4rem;
+}
+[data-bs-theme="dark"] .rk-card .rk-icon {
+  color: var(--rk-gold);
+}
+.rk-card.rk-card--coral .rk-icon {
+  background: rgba(232, 101, 79, 0.15);
+  color: var(--rk-coral);
+}
+
+/* Team cards */
+.rk-team-card {
+  background: var(--rk-surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.rk-team-card:hover { transform: translateY(-4px); }
+.rk-avatar {
+  width: 64px;
+  height: 64px;
+  margin-inline: auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--rk-font-display);
+  font-weight: 600;
+  color: var(--rk-navy);
+  background: linear-gradient(135deg, var(--rk-gold), #ffd48a);
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn-rk-primary {
+  --bs-btn-color: var(--rk-navy);
+  --bs-btn-bg: var(--rk-gold);
+  --bs-btn-border-color: var(--rk-gold);
+  --bs-btn-hover-bg: var(--rk-gold-dark);
+  --bs-btn-hover-border-color: var(--rk-gold-dark);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--rk-gold-dark);
+  font-weight: 600;
+}
+.btn-rk-outline {
+  --bs-btn-color: var(--rk-hero-color);
+  --bs-btn-border-color: var(--rk-hero-color);
+  --bs-btn-hover-bg: var(--rk-hero-color);
+  --bs-btn-hover-color: var(--rk-hero-bg);
+  --bs-btn-hover-border-color: var(--rk-hero-color);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Sections / footer
+   ============================================================ */
+.rk-section { padding-block: clamp(3rem, 7vw, 5rem); }
+.rk-section--alt {
+  background: var(--rk-surface);
+  border-block: 1px solid var(--bs-border-color);
+}
+
+.rk-footer {
+  background: var(--rk-navy);
+  color: rgba(247, 245, 240, 0.85);
+}
+.rk-footer a { color: rgba(247, 245, 240, 0.85); }
+.rk-footer a:hover { color: var(--rk-gold); }
+.rk-footer .dawn-line { margin-bottom: 0; }
+
+/* ============================================================
+   Table
+   ============================================================ */
+.rk-table thead {
+  font-family: var(--rk-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rk-ink-soft);
+}
+.rk-table tbody tr {
+  border-top: 1px solid var(--bs-border-color);
+}
+
+/* ============================================================
+   Accordion / Carousel / Modal fine-tuning
+   ============================================================ */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(242, 169, 59, 0.12);
+  color: var(--rk-ink);
+  box-shadow: inset 0 -1px 0 var(--rk-gold);
+}
+.accordion-button:focus { box-shadow: 0 0 0 3px rgba(242, 169, 59, 0.35); }
+
+.carousel .card { border: none; }
+.carousel-indicators [data-bs-target] { background-color: var(--rk-gold); }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+  background-color: rgba(18, 23, 43, 0.55);
+  border-radius: 50%;
+  padding: 1.1rem;
+}
+
+/* ============================================================
+   Scroll-reveal animation (progressively enhanced via JS) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* if JS never runs (e.g. disabled), content must stay visible */
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* ============================================================
+   Utility: horizon divider between sections
+   ============================================================ */
+.horizon-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rk-gold), transparent);
+  border: 0;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   Responsive fixes
+   ============================================================ */
+@media (max-width: 575.98px) {
+  .rk-hero { padding-block: 3rem; }
+  .display-1, .display-2 { font-size: 2.2rem; }
+}
