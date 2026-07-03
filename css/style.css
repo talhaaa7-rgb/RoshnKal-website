@@ -420,3 +420,37 @@ textarea:focus-visible,
   .rk-hero { padding-block: 3rem; }
   .display-1, .display-2 { font-size: 2.2rem; }
 }
+/* ==========================================================================
+   Mobile Responsive Fixes (Added to bottom of file)
+   ========================================================================== */
+@media (max-width: 991px) {
+  /* 1. Fixes the transparent dropdown screen by forcing a solid background */
+  .offcanvas {
+    background-color: var(--rk-cream) !important; 
+  }
+  
+  /* Automatically switches background if dark mode is active */
+  [data-bs-theme="dark"] .offcanvas {
+    background-color: var(--rk-navy) !important;
+  }
+
+  /* 2. Fixes invisible menu links on mobile */
+  .offcanvas .nav-link {
+    color: var(--rk-ink) !important;
+  }
+  
+  [data-bs-theme="dark"] .offcanvas .nav-link {
+    color: var(--rk-cream) !important;
+  }
+
+  /* 3. Fixes the tiny, faded "Roshan Kal" brand heading on mobile */
+  .offcanvas-header .rk-brand {
+    font-size: 1.6rem !important; 
+    opacity: 1 !important;        
+    color: var(--rk-ink) !important;
+  }
+
+  [data-bs-theme="dark"] .offcanvas-header .rk-brand {
+    color: var(--rk-cream) !important;
+  }
+}
