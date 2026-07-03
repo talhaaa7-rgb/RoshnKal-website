@@ -454,3 +454,7 @@ textarea:focus-visible,
     color: var(--rk-cream) !important;
   }
 }
+/* Add this right at the bottom below line 456 */
+.rk-brand {
+    color: var(--rk-gold) !important;
+}
